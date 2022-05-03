@@ -1,0 +1,9 @@
+
+[Unit]
+Description=Change desktop background every hour
+
+[Service]
+ExecStart=/home/lef/.local/bin/setbg
+
+[Install]
+WantedBy=multi-user.target

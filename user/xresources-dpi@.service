@@ -1,0 +1,15 @@
+[Unit]
+Description=Set the X Resources DataBase DPI to match the display DPI on X display %I
+Documentation=man:xrdb(1)
+Before=X11@%i.target
+Requisite=X11@%i.target
+
+[Service]
+Environment=DISPLAY=%I
+
+Type=oneshot
+ExecStart=/usr/bin/env flock %t/x11-xrdb@%I -c xrdb-set-dpi
+SyslogIdentifier=xrdb-set-dpi
+
+[Install]
+WantedBy=X11@%i.target

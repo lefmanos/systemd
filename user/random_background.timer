@@ -1,0 +1,10 @@
+
+[Unit]
+Description=Chooses a random background every hour
+
+[Timer]
+OnBootSec=1h
+OnUnitActiveSec=1h
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,16 @@
+[Unit]
+Description=xserver startup
+After=systemd-user-sessions.service
+
+[Service]
+
+Environment=XDG_SESSION_TYPE=x11
+TTYPath=/dev/tty1
+StandardInput=tty
+UnsetEnvironment=TERM
+
+StandardOutput=journal
+ExecStart=/usr/bin/startx
+
+[Install]
+WantedBy=graphical-session.target

@@ -1,0 +1,10 @@
+
+[Unit]
+Description=Check ip in timelaps
+
+[Timer]
+OnBootSec=20min
+OnUnitActiveSec=8h
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,15 @@
+[Unit]
+Description=Composite Window-Effects Manger on X display %I
+Documentation=man:xcompmgr(1)
+After=X11@%i.target
+Requisite=X11@%i.target
+
+[Service]
+Environment=DISPLAY=%I
+
+Type=simple
+ExecStart=/usr/bin/env xcompmgr
+SyslogIdentifier=xcompmgr
+
+[Install]
+WantedBy=X11@%i.target

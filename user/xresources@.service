@@ -1,0 +1,15 @@
+[Unit]
+Description=Load X Resources DataBase on X display %I
+Documentation=man:xrdb(1)
+Before=X11@%i.target
+Requisite=X11@%i.target
+
+[Service]
+Environment=DISPLAY=%I
+
+Type=oneshot
+ExecStart=/usr/bin/env xrdb -merge ${XDG_CONFIG_HOME}/x11/xresources
+SyslogIdentifier=xrdb
+
+[Install]
+WantedBy=X11@%i.target

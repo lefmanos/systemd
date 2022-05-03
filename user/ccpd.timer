@@ -1,0 +1,10 @@
+
+[Unit]
+Description=Check crypto prices
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=10min
+
+[Install]
+WantedBy=timers.target

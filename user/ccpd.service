@@ -1,0 +1,9 @@
+
+[Unit]
+Description=ip checker
+
+[Service]
+ExecStart=/home/lef/work/ccpd
+
+[Install]
+WantedBy=multi-user.target

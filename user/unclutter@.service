@@ -1,0 +1,17 @@
+[Unit]
+Description=Hide mouce cursor on X display %I
+Documentation=man:unclutter(1)
+After=X11@%i.target
+Requisite=X11@%i.target
+
+[Service]
+Environment=DISPLAY=%I
+
+Type=simple
+ExecStartPre=/usr/bin/env remaps
+ExecStartPre=/usr/bin/env setbg
+ExecStart=/usr/bin/env unclutter
+SyslogIdentifier=unclutter
+
+[Install]
+WantedBy=X11@%i.target

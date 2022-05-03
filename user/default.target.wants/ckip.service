@@ -1,0 +1,9 @@
+
+[Unit]
+Description=ip checker
+
+[Service]
+ExecStart=/home/lef/work/local_ip/check_ip.sh
+
+[Install]
+WantedBy=multi-user.target
