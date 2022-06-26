@@ -1,0 +1,15 @@
+[Unit]
+Description=udiskie service
+
+[Service]
+
+Type=simple
+
+ExecStart=/usr/bin/udiskie -T
+
+Restart=always
+
+SyslogIdentifier=udiskie
+
+[Install]
+WantedBy=default.target
