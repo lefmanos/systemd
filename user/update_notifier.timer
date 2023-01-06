@@ -1,0 +1,10 @@
+
+[Unit]
+Description=Checks for available updates
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=5h
+
+[Install]
+WantedBy=timers.target
