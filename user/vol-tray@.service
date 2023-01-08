@@ -1,0 +1,14 @@
+[Unit]
+Description=Volume management system tray applet
+After=X11@%i.target nm-tray@%i.service
+Requisite=X11@%i.target
+
+[Service]
+Environment=DISPLAY=%I
+
+Type=simple
+ExecStart=/usr/bin/env pasystray
+SyslogIdentifier=pasystray
+
+[Install]
+WantedBy=X11@%i.target
