@@ -1,6 +1,6 @@
 [Unit]
 Description=Keyboard layout system tray applet
-After=X11@%i.target
+After=X11@%i.target vol-tray@%i.service
 Requisite=X11@%i.target
 
 [Service]

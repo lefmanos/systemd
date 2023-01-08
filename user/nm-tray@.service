@@ -1,6 +1,6 @@
 [Unit]
 Description=Network Manager system tray applet
-After=X11@%i.target
+After=X11@%i.target dwmblocks@%i.service
 Requisite=X11@%i.target
 
 [Service]
