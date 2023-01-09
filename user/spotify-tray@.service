@@ -7,7 +7,8 @@ Requisite=X11@%i.target
 Environment=DISPLAY=%I
 
 Type=simple
-ExecStartPre=sleep 30s
+; ExecStartPre=sleep 30s
+ExecStartPre=/usr/bin/bash -c "/usr/bin/env pgrep spotify || /usr/bin/env spotify & disown;exit 0"
 ExecStart=/usr/bin/env spotify-tray
 SyslogIdentifier=spotify-tray
 
