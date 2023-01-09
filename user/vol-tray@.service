@@ -1,6 +1,6 @@
 [Unit]
 Description=Volume management system tray applet
-After=X11@%i.target nm-tray@%i.service
+After=X11@%i.target
 Requisite=X11@%i.target
 
 [Service]

@@ -1,12 +1,13 @@
 [Unit]
 Description=Keyboard layout system tray applet
-After=X11@%i.target vol-tray@%i.service
+After=X11@%i.target
 Requisite=X11@%i.target
 
 [Service]
 Environment=DISPLAY=%I
 
 Type=simple
+ExecStartPre=sleep 10s
 ExecStart=/usr/bin/env sbxkb
 SyslogIdentifier=sbxkb
 
