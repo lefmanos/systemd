@@ -1,0 +1,15 @@
+[Unit]
+Description=Spotify system tray applet
+After=X11@%i.target
+Requisite=X11@%i.target
+
+[Service]
+Environment=DISPLAY=%I
+
+Type=simple
+ExecStartPre=sleep 30s
+ExecStart=/usr/bin/env spotify-tray
+SyslogIdentifier=spotify-tray
+
+[Install]
+WantedBy=X11@%i.target
