@@ -1,0 +1,12 @@
+[Unit]
+Description=openbox on X display %I
+After=X11@%i.target
+Requisite=X11@%i.target
+
+[Service]
+Environment=DISPLAY=%I
+Type=notify
+NotifyAccess=all
+ExecStart=/usr/bin/env ssh-agent openbox
+SyslogIdentifier=openbox
+Restart=no
