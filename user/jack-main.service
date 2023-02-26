@@ -8,16 +8,19 @@ Type=simple
 ExecStartPre=/usr/bin/bash -c "while ! pgrep pulseaudio;do sleep 1s;done;sleep 2s"
 ExecStartPre=-/usr/bin/pacmd suspend true
 
-ExecStart=/usr/bin/jackd -u -R -dalsa -r48000 -p1024 -n2 -Xraw -D -Chw:Device -Phw:Audiophile192
+#ExecStart=/usr/bin/jackd -u -R -dalsa -r48000 -p1024 -n2 -Xraw -D -Chw:Device -Phw:Audiophile192
 #ExecStart=/usr/bin/jackd -u -dalsa -r44100 -p2048 -n2 -Xraw -D -Chw:Device -Phw:Audiophile192
 #ExecStart=/usr/bin/jackd -u -dalsa -r44100 -p1024 -n2 -Xraw -D -Chw:Device -Phw:Device
 #ExecStart=/usr/bin/jackd -u -dalsa -r48000 -p2048 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
-#ExecStart=/usr/bin/jackd -u -R -dalsa -r48000 -p4096 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
+#ExecStart=/usr/bin/jackd -u -dalsa -r48000 -p1024 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
+ExecStart=/usr/bin/jackd -u -R -dalsa -r44100 -p4096 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
 #ExecStart=/usr/bin/jackd -u -dalsa -r192000 -p2048 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
 
 ExecStartPost=/usr/bin/bash -c "while ! pgrep jackd;do sleep 1s;done;sleep 2s"
 ExecStartPost=-/usr/bin/pactl load-module module-jack-sink channels=2
 ExecStartPost=-/usr/bin/pactl load-module module-jack-source channels=2
+ExecStartPost=-/usr/bin/pactl load-module module-jack-sink channels=2 connect=false
+ExecStartPost=-/usr/bin/pactl load-module module-jack-source channels=2 connect=false
 ExecStartPost=-/usr/bin/pacmd set-default-sink jack_out
 ExecStartPost=-/usr/bin/pacmd set-default-source jack_in
 
