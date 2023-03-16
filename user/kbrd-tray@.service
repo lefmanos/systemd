@@ -7,7 +7,7 @@ Requisite=X11@%i.target
 Environment=DISPLAY=%I
 
 Type=simple
-ExecStartPre=sleep 10s
+; ExecStartPre=sleep 10s
 ExecStart=/usr/bin/env sbxkb
 SyslogIdentifier=sbxkb
 
