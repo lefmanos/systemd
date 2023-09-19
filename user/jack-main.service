@@ -13,14 +13,22 @@ ExecStartPre=-/usr/bin/pacmd suspend true
 #ExecStart=/usr/bin/jackd -u -dalsa -r44100 -p1024 -n2 -Xraw -D -Chw:Device -Phw:Device
 #ExecStart=/usr/bin/jackd -u -dalsa -r48000 -p2048 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
 #ExecStart=/usr/bin/jackd -u -dalsa -r48000 -p1024 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
-ExecStart=/usr/bin/jackd -u -R -dalsa -r44100 -p4096 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
-#ExecStart=/usr/bin/jackd -u -dalsa -r192000 -p2048 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
+
+#mixing
+  ExecStart=/usr/bin/jackd -u -R -dalsa -r44100 -p4096 -n2 -Xraw -D -Chw:Gen -Phw:Gen
+; ExecStart=/usr/bin/jackd -u -R -dalsa -r44100 -p4096 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
+; ExecStart=/usr/bin/jackd -u -R -dalsa -r48000 -p4096 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
+; ExecStart=/usr/bin/jackd -u -dalsa -r192000 -p4096 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
+
+# low latency
+; ExecStart=/usr/bin/jackd -u -R -dalsa -r44100 -p256 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
+; ExecStart=/usr/bin/jackd -u -R -dalsa -r44100 -p512 -n2 -Xraw -D -Chw:Gen -Phw:Gen
 
 ExecStartPost=/usr/bin/bash -c "while ! pgrep jackd;do sleep 1s;done;sleep 2s"
-ExecStartPost=-/usr/bin/pactl load-module module-jack-sink channels=2
-ExecStartPost=-/usr/bin/pactl load-module module-jack-source channels=2
-ExecStartPost=-/usr/bin/pactl load-module module-jack-sink channels=2 connect=false
-ExecStartPost=-/usr/bin/pactl load-module module-jack-source channels=2 connect=false
+ExecStartPost=-/usr/bin/pactl load-module module-jack-sink sink_name=MainSink channels=2
+ExecStartPost=-/usr/bin/pactl load-module module-jack-source source_name=MicSource channels=2
+ExecStartPost=-/usr/bin/pactl load-module module-jack-sink sink_name=LoopSink channels=2 connect=false
+ExecStartPost=-/usr/bin/pactl load-module module-jack-source source_name=LoopSource channels=2 connect=false
 ExecStartPost=-/usr/bin/pacmd set-default-sink jack_out
 ExecStartPost=-/usr/bin/pacmd set-default-source jack_in
 
