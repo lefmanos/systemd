@@ -13,7 +13,7 @@ ExecStart=dwmblocks
 StandardError=journal
 SyslogIdentifier=dwmblocks
 TimeoutStartSec=3
-Restart=no
+Restart=yes
 
 [Install]
 WantedBy=X11@%i.target
