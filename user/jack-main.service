@@ -3,38 +3,24 @@ Description=jakcd service
 
 [Service]
 
+; realime=R no realtime=r
+; Gen : Scarlett
+; Camera: Camera
+; Tube : firepod Tube
+; Mobile : firestudio mikri tou tassou
+; Device : build in card of laptop
+Environment="INPUT_CARD=Camera"
+Environment="OUTPUT_CARD=Gen"
+Environment="SAMPLERATE=48000"
+Environment="REALTIME=R"
+Environment="BUFFER=2048"
+
 Type=simple
 
 ExecStartPre=/usr/bin/bash -c "while ! pgrep pulseaudio;do sleep 1s;done;sleep 2s"
 ExecStartPre=-/usr/bin/pacmd suspend true
 
-#ExecStart=/usr/bin/jackd -u -R -dalsa -r48000 -p1024 -n2 -Xraw -D -Chw:Device -Phw:Audiophile192
-#ExecStart=/usr/bin/jackd -u -dalsa -r44100 -p2048 -n2 -Xraw -D -Chw:Device -Phw:Audiophile192
-#ExecStart=/usr/bin/jackd -u -dalsa -r44100 -p1024 -n2 -Xraw -D -Chw:Device -Phw:Device
-#ExecStart=/usr/bin/jackd -u -dalsa -r48000 -p2048 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
-#ExecStart=/usr/bin/jackd -u -dalsa -r48000 -p1024 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
-
-#mixing
-; ExecStart=/usr/bin/jackd -u -R -dalsa -r44100 -p4096 -n2 -Xraw -D -Chw:Gen -Phw:Gen
-; ExecStart=/usr/bin/jackd -u -R -dalsa -r48000 -p4096 -n2 -Xraw -D -Chw:Gen -Phw:Gen
-; ExecStart=/usr/bin/jackd -u -R -dalsa -r44100 -p4096 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
-; ExecStart=/usr/bin/jackd -u -R -dalsa -r48000 -p4096 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
-; ExecStart=/usr/bin/jackd -u -R -dalsa -r48000 -p1024 -n2 -Xraw -D -Chw:Tube -Phw:Tube
-; ExecStart=/usr/bin/jackd -u -R -dalsa -r48000 -p1024 -n2 -Xraw -D -Chw:Mobile -Phw:Mobile
-; ExecStart=/usr/bin/jackd -u -dalsa -r192000 -p4096 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
-
-# low latency
-; ExecStart=/usr/bin/jackd -u -R -dalsa -r44100 -p256 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
-; ExecStart=/usr/bin/jackd -u -R -dalsa -r44100 -p512 -n2 -Xraw -D -Chw:Audiophile192 -Phw:Audiophile192
-; ExecStart=/usr/bin/jackd -u -R -dalsa -r44100 -p512 -n2 -Xraw -D -Chw:Gen -Phw:Gen
-; ExecStart=/usr/bin/jackd -u -R -dalsa -r48000 -p1024 -n2 -Xraw -D -Chw:Gen -Phw:Gen
-; ExecStart=/usr/bin/jackd -u -dalsa -r48000 -p1024 -n2 -Xraw -D -Chw:Gen -Phw:Gen
-; ExecStart=/usr/bin/jackd -u -dalsa -r48000 -p1024 -n2 -Xraw -Chw:Camera -Phw:Gen
-; ExecStart=/usr/bin/jackd -u -dalsa -r48000 -p2048 -n2 -Xraw -D -Chw:Gen -Phw:Gen
-
-# call no realtime
-ExecStart=/usr/bin/jackd -u -r -dalsa -r48000 -p2048 -n4 -Xraw -Chw:Camera -Phw:Gen
-; ExecStart=/usr/bin/jackd -u -r -dalsa -r48000 -p1024 -n2 -Xraw -Chw:Camera -Phw:Gen
+ExecStart=/usr/bin/jackd -u -${REALTIME} -dalsa -r${SAMPLERATE} -p${BUFFER} -n4 -Xraw -Chw:${INPUT_CARD} -Phw:${OUTPUT_CARD}
 
 ExecStartPost=/usr/bin/bash -c "while ! pgrep jackd;do sleep 1s;done;sleep 2s"
 ExecStartPost=-/usr/bin/pactl load-module module-jack-sink sink_name=MainSink sink_properties=device.description=Speakers channels=2
