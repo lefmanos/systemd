@@ -6,4 +6,4 @@ Description=ngrok service
 ExecStart=ngrok tcp 22
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
